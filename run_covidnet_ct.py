@@ -16,6 +16,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from dataset import COVIDxCTDataset
 from data_utils import auto_body_crop
 from utils import parse_args
+from read_dicom import read_image_any_type
 
 # Dict keys
 TRAIN_OP_KEY = 'train_op'
@@ -390,9 +391,10 @@ if __name__ == '__main__':
         )
     elif mode == 'test':
         # Run validation
+        split_file = read_image_any_type(args.test_split_file)
         runner.test(
             batch_size=args.batch_size,
-            test_split_file=args.test_split_file,
+            test_split_file=split_file,
             plot_confusion=args.plot_confusion
         )
     elif mode == 'infer':
