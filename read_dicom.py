@@ -12,7 +12,9 @@ def read_image_any_type(file_path: str):
 def read_image_dicom(file_path: str):
     ds = pydicom.read_file(file_path)
     img = ds.pixel_array
-    cv2.imwrite(make_new_file_path(file_path),img[0])
+    output_filepath = make_new_file_path(file_path)
+    cv2.imwrite(output_filepath,img[0])
+    return output_filepath
 
 def make_new_file_path(file_path: str):
     dir = '/'.join(file_path.split('/')[:-1])
@@ -22,9 +24,3 @@ def make_new_file_path(file_path: str):
     result = f"{dir}/{file_name}.png"
     print(f"res= {result}")
     return result
-
-def test():
-    read_image_any_type('F:/pp/kossher/0002.DCM')
-
-if __name__ == '__main__':
-    test()
