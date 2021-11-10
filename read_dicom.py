@@ -13,7 +13,7 @@ def read_image_dicom(file_path: str):
     ds = pydicom.read_file(file_path)
     img = ds.pixel_array
     output_filepath = make_new_file_path(file_path)
-    cv2.imwrite(output_filepath,img[0])
+    cv2.imwrite(output_filepath,img)
     return output_filepath
 
 def make_new_file_path(file_path: str):
