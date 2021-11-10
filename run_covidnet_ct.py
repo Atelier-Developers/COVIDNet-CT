@@ -251,10 +251,10 @@ class COVIDNetCTRunner:
             print('\nPredicted Class: ' + CLASS_NAMES[class_[0]])
             print('Confidences: ' + ', '.join(
                 '{}: {}'.format(name, conf) for name, conf in zip(CLASS_NAMES, probs[0])))
-            print('**DISCLAIMER**')
-            print('Do not use this prediction for self-diagnosis. '
-                  'You should check with your local authorities for '
-                  'the latest advice on seeking medical assistance.')
+            #print('**DISCLAIMER**')
+            #print('Do not use this prediction for self-diagnosis. '
+            #      'You should check with your local authorities for '
+            #      'the latest advice on seeking medical assistance.')
 
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
