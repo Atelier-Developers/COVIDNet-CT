@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  aphrodite:
+    build:
+      context: .
+    restart: on-failure
+    tty: true
+    volumes:
+    - ./assets:/app/COVIDNet-CT/assets
+    - ./run.sh:/app/COVIDNet-CT/run.sh
