@@ -17,6 +17,7 @@ from dataset import COVIDxCTDataset
 from data_utils import auto_body_crop
 from utils import parse_args
 from read_dicom import read_image_any_type
+from visualization_utils import *
 
 # Dict keys
 TRAIN_OP_KEY = 'train_op'
