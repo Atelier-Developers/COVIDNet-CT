@@ -2,4 +2,7 @@ version: "3.8"
 services:
   aphrodite:
     volumes:
-    - .:/app/COVIDNet-CT
+    - ./visualization_utils.py:/app/COVIDNet-CT/visualization_utils.py
+    - ./run_covidnet_ct.py:/app/COVIDNet-CT/run_covidnet_ct.py
+    - ./utils.py:/app/COVIDNet-CT/utils.py
+    - ./assets:/app/COVIDNet-CT/assets

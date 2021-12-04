@@ -17,7 +17,6 @@ from dataset import COVIDxCTDataset
 from data_utils import auto_body_crop
 from utils import parse_args
 from read_dicom import read_image_any_type
-from visualization_utils import *
 
 # Dict keys
 TRAIN_OP_KEY = 'train_op'
@@ -225,37 +224,53 @@ class COVIDNetCTRunner:
                 disp.plot(include_values=True, cmap='Blues', ax=ax, xticks_rotation='horizontal', values_format='.5g')
                 plt.show()
 
-    def infer(self, image_file, autocrop=True):
+    def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png"):
         """Run inference on the given image"""
         # Load and preprocess image
-        image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
-        if autocrop:
-            image, _ = auto_body_crop(image)
-        image = cv2.resize(image, (self.input_width, self.input_height), cv2.INTER_CUBIC)
-        image = image.astype(np.float32) / 255.0
-        image = np.expand_dims(np.stack((image, image, image), axis=-1), axis=0)
+        from visualization_utils import auto_body_crop, load_and_preprocess, make_gradcam_graph, run_gradcam
+        if not draw_heatmap:
+            image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
+            if autocrop:
+                image, _ = auto_body_crop(image)
+            image = cv2.resize(image, (self.input_width, self.input_height), cv2.INTER_CUBIC)
+            image = image.astype(np.float32) / 255.0
+            image = np.expand_dims(np.stack((image, image, image), axis=-1), axis=0)
 
-        # Create feed dict
-        feed_dict = {IMAGE_INPUT_TENSOR: image, TRAINING_PH_TENSOR: False}
+            # Create feed dict
+            feed_dict = {IMAGE_INPUT_TENSOR: image, TRAINING_PH_TENSOR: False}
 
-        # Run inference
-        with self.graph.as_default():
-            # Add training placeholder if present
-            try:
-                self.sess.graph.get_tensor_by_name(TRAINING_PH_TENSOR)
-                feed_dict[TRAINING_PH_TENSOR] = False
-            except KeyError:
-                pass
+            # Run inference
+            with self.graph.as_default():
+                # Add training placeholder if present
+                try:
+                    self.sess.graph.get_tensor_by_name(TRAINING_PH_TENSOR)
+                    feed_dict[TRAINING_PH_TENSOR] = False
+                except KeyError:
+                    pass
 
-            # Run image through model
-            class_, probs = self.sess.run([CLASS_PRED_TENSOR, CLASS_PROB_TENSOR], feed_dict=feed_dict)
-            print('\nPredicted Class: ' + CLASS_NAMES[class_[0]])
-            print('Confidences: ' + ', '.join(
-                '{}: {}'.format(name, conf) for name, conf in zip(CLASS_NAMES, probs[0])))
-            #print('**DISCLAIMER**')
-            #print('Do not use this prediction for self-diagnosis. '
-            #      'You should check with your local authorities for '
-            #      'the latest advice on seeking medical assistance.')
+                # Run image through model
+                class_, probs = self.sess.run([CLASS_PRED_TENSOR, CLASS_PROB_TENSOR], feed_dict=feed_dict)
+                print('\nPredicted Class: ' + CLASS_NAMES[class_[0]])
+                print('Confidences: ' + ', '.join(
+                    '{}: {}'.format(name, conf) for name, conf in zip(CLASS_NAMES, probs[0])))
+        else:
+
+            final_conv, pooled_grads = make_gradcam_graph(self.graph)
+            # Prepare image
+            image = load_and_preprocess([image_file])
+
+            # Run Grad-CAM
+            heatmap, class_pred, class_prob = run_gradcam(
+                self.graph, final_conv, pooled_grads, self.sess, image)
+
+            # Show image
+            fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+            plt.subplots_adjust(hspace=0.01)
+            # ax[0].imshow(image[0])
+            plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred], class_prob))
+            ax.imshow(image[0])
+            ax.imshow(heatmap, cmap='jet', alpha=0.4)
+            plt.savefig(f"assets/heatmaps/{heatmap_dir}")
 
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
@@ -400,4 +415,4 @@ if __name__ == '__main__':
         )
     elif mode == 'infer':
         # Run inference
-        runner.infer(read_image_any_type(args.image_file), not args.no_crop)
+        runner.infer(read_image_any_type(args.image_file), not args.no_crop, args.heatmap, args.heatmap_dir)
