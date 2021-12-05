@@ -2,9 +2,9 @@
 #include "mainwindow.h"
 #include "networkresult.h"
 #include "ui_mainwindow.h"
+#include "result.h"
 
 #include <QProcess>
-#include <Result.h>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
