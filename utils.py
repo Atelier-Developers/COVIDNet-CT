@@ -51,7 +51,7 @@ def parse_args(args):
                             help='Flag to prevent automatic cropping of the image')
         parser.add_argument('-hm', '--heatmap', action='store_true',
                             help='Flag to generate heatmap for the input image')
-        parser.add_argument('-dd', '--heatmap_dir', type=str, default='heatmap.png', help='Heatmap filename to save')
+        parser.add_argument('-dd', '--heatmap_dir', type=str, default='heatmap_sample_1.png', help='Heatmap filename to save')
 
     elif args[0] in ('-h', '--help'):
         print('COVID-Net CT Train/Test/Infer Script\nUse run_covidnet_ct.py {train, test, infer} -h '

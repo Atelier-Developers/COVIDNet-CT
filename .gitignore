@@ -8,3 +8,5 @@ explain/
 models/
 output/
 gensynth/
+/assets/outputs
+/assets/heatmaps

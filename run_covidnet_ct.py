@@ -270,6 +270,8 @@ class COVIDNetCTRunner:
             plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred], class_prob))
             ax.imshow(image[0])
             ax.imshow(heatmap, cmap='jet', alpha=0.4)
+            if not os.path.exists("assets/heatmaps"):
+                os.makedirs("assets/heatmaps")
             plt.savefig(f"assets/heatmaps/{heatmap_dir}")
 
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
