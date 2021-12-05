@@ -21,10 +21,16 @@ MainWindow::~MainWindow()
 
 NetworkResult *
 MainWindow::run_network(){
-    QString path = "F:\\pp\\tst.py";
+    QString path = "../run_covidnet_ct.py";
     QString image_path = ui->file_directory->toPlainText();
+    QString heatmap_path = "heatmap.png";
     QString  command("python");
-    QStringList params = QStringList() << path;
+    QStringList params = QStringList() << path <<"--model_dir models/COVID-Net_CT-2_L"
+                                                <<"--meta_name model.meta "
+                                                <<"--ckpt_name model"
+                                                <<"--image_file " + image_path
+                                                <<"--heatmap"
+                                                <<"--heatmap_dir " + heatmap_path;
 
     QProcess *process = new QProcess();
     process->start(command, params);

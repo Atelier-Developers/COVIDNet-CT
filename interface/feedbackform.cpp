@@ -1,3 +1,6 @@
+#include <QTextStream>
+#include <QFile>
+#include <QDataStream>
 #include "feedbackform.h"
 #include "ui_feedbackform.h"
 #include <QFile>

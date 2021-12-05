@@ -5,4 +5,5 @@ services:
     - ./visualization_utils.py:/app/COVIDNet-CT/visualization_utils.py
     - ./run_covidnet_ct.py:/app/COVIDNet-CT/run_covidnet_ct.py
     - ./utils.py:/app/COVIDNet-CT/utils.py
+    - ./read_dicom.py:/app/COVIDNet-CT/read_dicom.py
     - ./assets:/app/COVIDNet-CT/assets
