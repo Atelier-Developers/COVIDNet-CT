@@ -1,9 +1,9 @@
 #include <QTextStream>
 #include <QFile>
 #include <QDataStream>
+#include <QFile>
 #include "feedbackform.h"
 #include "ui_feedbackform.h"
-#include <QFile>
 
 FeedbackForm::FeedbackForm(QWidget *parent, QString _file_path, QString _network_result) :
     QDialog(parent),

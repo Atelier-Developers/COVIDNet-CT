@@ -1,6 +1,7 @@
 #ifndef FEEDBACKFORM_H
 #define FEEDBACKFORM_H
 
+#include <QTextStream>
 #include <QDialog>
 
 namespace Ui {
