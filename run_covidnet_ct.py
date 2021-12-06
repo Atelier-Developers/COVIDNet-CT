@@ -267,7 +267,7 @@ class COVIDNetCTRunner:
 
             print(CLASS_NAMES[class_pred[0]], end=" ")
             print(' '.join(
-                '{}'.format(conf) for name, conf in zip(CLASS_NAMES, class_prob[0])))
+                '{}'.format(conf) for name, conf in zip(CLASS_NAMES, class_prob[0])), end="")
 
             # Show image
             fig, ax = plt.subplots(1, 1, figsize=(10, 5))
@@ -276,9 +276,9 @@ class COVIDNetCTRunner:
             plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred[0]], class_prob[0, class_pred[0]]))
             ax.imshow(image[0])
             ax.imshow(heatmap, cmap='jet', alpha=0.4)
-            if not os.path.exists("assets/heatmaps"):
-                os.makedirs("assets/heatmaps")
-            plt.savefig(f"assets/heatmaps/{heatmap_dir}")
+            if not os.path.exists("assets/temp"):
+                os.makedirs("assets/temp")
+            plt.savefig("assets/temp/heatmap.png", bbox_inches='tight')
 
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
