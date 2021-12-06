@@ -40,18 +40,60 @@ MainWindow::run_network(){
     return new NetworkResult(p_stdout);
 }
 
+bool
+MainWindow::image_is_dicom() {
+    if(ui->file_directory->toPlainText().split(".").back().compare("dcm") == 0)
+        return true;
+    return false;
+}
+
+QString
+MainWindow::make_temp_image() {
+    QString image_path = ui->file_directory->toPlainText();
+    QString  command("python");
+    QStringList params = QStringList() << "F:/pp/kossher/COVIDNet-CT/read_dicom.py"
+                                        << image_path
+                                        << "-temp";
+
+    QProcess *process = new QProcess(this);
+    process->start(command, params);
+    process->execute(command, params);
+    process->waitForFinished(-1);
+    QString p_stdout(process->readAllStandardOutput());
+    process->close();
+
+    return QString("F:/pp/kossher/COVIDNet-CT/temp/dicom.png");
+}
 
 void MainWindow::on_image_preview_clicked() {
+    ui->status_lbl->setText("Loading...");
+    ui->status_lbl->update();
+    QApplication::instance()->processEvents();
+
+    ui->status_lbl->adjustSize();
+    if (image_is_dicom()){
+        QString *image_path = new QString(make_temp_image());
+
+        ImageWindow* image_window = new ImageWindow(this, image_path, true);
+
+        image_window->show();
+        ui->status_lbl->setText("");
+        return;
+    }
     QString *image_path = new QString(ui->file_directory->toPlainText());
 
     ImageWindow* image_window = new ImageWindow(this, image_path);
 
+    ui->status_lbl->setText("");
     image_window->show();
 }
 
 
 void MainWindow::on_analyze_clicked() {
     ui->status_lbl->setText("Inferring...");
+    ui->status_lbl->update();
+    QApplication::instance()->processEvents();
+
     NetworkResult* result = run_network();
     ui->status_lbl->setText("");
 

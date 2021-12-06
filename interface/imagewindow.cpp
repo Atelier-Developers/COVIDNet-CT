@@ -25,6 +25,9 @@ ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_abl
 ImageWindow::~ImageWindow()
 {
     delete ui;
+    qDebug() << "DELETEING:" << image_path;
+    if (QFile::exists(image_path))
+        QFile::remove(image_path);
 }
 
 void ImageWindow::on_save_img_clicked()

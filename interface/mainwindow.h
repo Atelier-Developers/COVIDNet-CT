@@ -22,13 +22,15 @@ private slots:
 
     void on_analyze_clicked();
 
-    void on_pushButton_clicked();
-
     void on_browser_clicked();
 
 private:
     Ui::MainWindow *ui;
 
     NetworkResult* run_network();
+
+    bool image_is_dicom();
+
+    QString make_temp_image();
 };
 #endif // MAINWINDOW_H
