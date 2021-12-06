@@ -14,3 +14,5 @@ gensynth/
 /interface/*.o
 /interface/.qmake.stash
 /interface/moc*
+/interface/ui_*.h
+/interface/Makefile
