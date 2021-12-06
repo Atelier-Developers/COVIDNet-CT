@@ -12,7 +12,7 @@ class ImageWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit ImageWindow(QWidget *parent = nullptr, QString *image_address = nullptr);
+    explicit ImageWindow(QWidget *parent = nullptr, QString *image_address = nullptr, bool _move_able = false);
     ~ImageWindow();
 
 private slots:
@@ -20,6 +20,8 @@ private slots:
 
 private:
     Ui::ImageWindow *ui;
+    QString image_path;
+    bool move_able
 };
 
 #endif // IMAGEWINDOW_H

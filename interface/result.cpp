@@ -28,7 +28,7 @@ void Result::on_feedback_button_clicked() {
 void Result::on_show_heatmap_clicked() {
     QString *image_path = new QString("../assets/temp/heatmap.png");
 
-    ImageWindow* image_window = new ImageWindow(this, image_path);
+    ImageWindow* image_window = new ImageWindow(this, image_path, true);
 
     image_window->show();
 }
