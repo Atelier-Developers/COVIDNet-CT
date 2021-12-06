@@ -3,6 +3,7 @@
 #include "networkresult.h"
 #include "ui_mainwindow.h"
 #include "result.h"
+#include <iostream>
 
 #include <QProcess>
 #include <QDebug>
@@ -21,21 +22,15 @@ MainWindow::~MainWindow()
 
 NetworkResult *
 MainWindow::run_network(){
-    QString path = "../run_covidnet_ct.py";
     QString image_path = ui->file_directory->toPlainText();
-    QString heatmap_path = "heatmap.png";
-    QString  command("python");
-    QStringList params = QStringList() << path <<"--model_dir models/COVID-Net_CT-2_L"
-                                                <<"--meta_name model.meta "
-                                                <<"--ckpt_name model"
-                                                <<"--image_file " + image_path
-                                                <<"--heatmap"
-                                                <<"--heatmap_dir " + heatmap_path;
+    QString heatmap_path = "heat.png";
+    QString  command("./infer.sh");
+    QStringList params = QStringList() << image_path << " " << heatmap_path;
 
-    QProcess *process = new QProcess();
+    QProcess *process = new QProcess(this);
     process->start(command, params);
+    process->execute(command, params);
     process->waitForFinished(-1);
-
     QString p_stdout(process->readAllStandardOutput());
     process->close();
 

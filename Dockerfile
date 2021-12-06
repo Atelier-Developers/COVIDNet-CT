@@ -5,4 +5,10 @@ RUN pip3 install pydicom && \
 
 RUN git pull
 
+WORKDIR interface
+
+RUN qmake interface.pro && make
+
+WORKDIR /app/COVIDNet-CT
+
 CMD ["tail", "-f", "/dev/null"]

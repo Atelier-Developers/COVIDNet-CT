@@ -13,6 +13,8 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 from dataset import COVIDxCTDataset
 from data_utils import auto_body_crop
 from utils import parse_args
@@ -262,6 +264,9 @@ class COVIDNetCTRunner:
             # Run Grad-CAM
             heatmap, class_pred, class_prob = run_gradcam(
                 self.graph, final_conv, pooled_grads, self.sess, image)
+
+            print('\nPredicted Class: ' + CLASS_NAMES[class_pred])
+            print('Confidences: {}' .format(class_prob))
 
             # Show image
             fig, ax = plt.subplots(1, 1, figsize=(10, 5))
