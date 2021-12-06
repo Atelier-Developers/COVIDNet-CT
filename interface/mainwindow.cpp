@@ -50,9 +50,10 @@ void MainWindow::on_image_preview_clicked() {
 }
 
 
-void MainWindow::on_analyze_clicked()
-{
+void MainWindow::on_analyze_clicked() {
+    ui->status_lbl->setText("Inferring...");
     NetworkResult* result = run_network();
+    ui->status_lbl->setText("");
 
     Result* result_window = new Result(this, result, ui->file_directory->toPlainText());
     result_window->show();
