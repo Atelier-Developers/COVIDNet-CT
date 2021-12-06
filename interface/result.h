@@ -20,6 +20,8 @@ public:
 private slots:
     void on_feedback_button_clicked();
 
+    void on_show_heatmap_clicked();
+
 private:
     Ui::Result *ui;
     NetworkResult* network_result;

@@ -22,6 +22,10 @@ private slots:
 
     void on_analyze_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_browser_clicked();
+
 private:
     Ui::MainWindow *ui;
 

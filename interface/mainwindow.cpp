@@ -7,6 +7,9 @@
 
 #include <QProcess>
 #include <QDebug>
+#include <QDir>
+#include <QFileDialog>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -53,5 +56,16 @@ void MainWindow::on_analyze_clicked()
 
     Result* result_window = new Result(this, result, ui->file_directory->toPlainText());
     result_window->show();
+}
+
+
+
+void MainWindow::on_browser_clicked()
+{
+    QString directory = QFileDialog::getOpenFileName(this,
+                                tr("Find Files"), QDir::currentPath() + "/../");
+
+    qDebug() << "DIR: " << directory;
+    ui->file_directory->setText(directory);
 }
 

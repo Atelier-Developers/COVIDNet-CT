@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>157</height>
+    <height>188</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <x>10</x>
       <y>10</y>
       <width>411</width>
-      <height>107</height>
+      <height>134</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -52,6 +52,13 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QPushButton" name="browser">
+         <property name="text">
+          <string>Choose File</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">

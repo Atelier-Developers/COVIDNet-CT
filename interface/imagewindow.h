@@ -15,6 +15,9 @@ public:
     explicit ImageWindow(QWidget *parent = nullptr, QString *image_address = nullptr);
     ~ImageWindow();
 
+private slots:
+    void on_save_img_clicked();
+
 private:
     Ui::ImageWindow *ui;
 };
