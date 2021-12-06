@@ -51,7 +51,7 @@ QString
 MainWindow::make_temp_image() {
     QString image_path = ui->file_directory->toPlainText();
     QString  command("python");
-    QStringList params = QStringList() << "F:/pp/kossher/COVIDNet-CT/read_dicom.py"
+    QStringList params = QStringList() << "../read_dicom.py"
                                         << image_path
                                         << "-temp";
 
@@ -62,7 +62,7 @@ MainWindow::make_temp_image() {
     QString p_stdout(process->readAllStandardOutput());
     process->close();
 
-    return QString("F:/pp/kossher/COVIDNet-CT/temp/dicom.png");
+    return QString("../assets/temp/dicom.png");
 }
 
 void MainWindow::on_image_preview_clicked() {

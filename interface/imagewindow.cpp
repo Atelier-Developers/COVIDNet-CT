@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QFile>
+#include <QDebug>
 
 ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_able) :
     QDialog(parent),
