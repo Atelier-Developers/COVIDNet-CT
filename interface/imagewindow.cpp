@@ -14,6 +14,7 @@ ImageWindow::ImageWindow(QWidget *parent, QString *image_address) :
     QPixmap image(*image_address);
 
     ui->image_place->setPixmap(image);
+    ui->image_place->setScaledContents(true);
 
 }
 

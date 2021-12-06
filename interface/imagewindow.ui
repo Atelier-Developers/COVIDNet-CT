@@ -3,7 +3,7 @@
  <class>ImageWindow</class>
  <widget class="QDialog" name="ImageWindow">
   <property name="enabled">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <property name="geometry">
    <rect>
@@ -30,6 +30,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="save_img">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>390</x>
