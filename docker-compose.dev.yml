@@ -7,6 +7,7 @@ services:
     - ./utils.py:/app/COVIDNet-CT/utils.py
     - ./read_dicom.py:/app/COVIDNet-CT/read_dicom.py
     - ./assets:/app/COVIDNet-CT/assets
+    - ./feedback:/app/COVIDNet-CT/feedback
     - ./interface:/app/COVIDNet-CT/interface
     - /tmp/.X11-unix/:/tmp/.X11-unix
     environment:

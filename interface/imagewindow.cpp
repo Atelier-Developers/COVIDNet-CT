@@ -32,7 +32,7 @@ void ImageWindow::on_save_img_clicked()
     QString directory = QFileDialog::getSaveFileName(this,
                                 tr("Find Files"), QDir::currentPath() + "/..");
 
-    QFile::copy(image_path, directory);
+    QFile::rename(image_path, directory);
 
 }
 

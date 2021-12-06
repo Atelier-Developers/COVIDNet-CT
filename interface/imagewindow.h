@@ -21,7 +21,7 @@ private slots:
 private:
     Ui::ImageWindow *ui;
     QString image_path;
-    bool move_able
+    bool move_able;
 };
 
 #endif // IMAGEWINDOW_H

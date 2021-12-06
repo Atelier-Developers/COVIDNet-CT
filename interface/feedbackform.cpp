@@ -1,7 +1,8 @@
 #include <QTextStream>
 #include <QFile>
 #include <QDataStream>
-#include <QFile>
+#include <QDebug>
+#include <QDir>
 #include "feedbackform.h"
 #include "ui_feedbackform.h"
 
@@ -33,8 +34,16 @@ void FeedbackForm::on_submit_button_clicked() {
 
 QString
 FeedbackForm::get_feedback_path(QString path) {
+    const QFileInfo outputDir("../feedback");
+    if ((!outputDir.exists()) || (!outputDir.isDir()) || (!outputDir.isWritable())) {
+        qWarning() << "output directory does not exist, is not a directory, or is not writeable"
+                   << outputDir.absoluteFilePath();
+        QDir().mkdir("../feedback");
+    }
+
     auto lst_slash = path.split("/");
     auto lst_backslash = lst_slash.back().split("\\");
-    QString new_path = QString("F:\\pp\\qt\\feedback\\") + lst_backslash.back();
+    qDebug() << lst_slash << "     " << lst_backslash;
+    QString new_path = QString("../feedback/") + lst_backslash.back();
     return new_path;
 }
