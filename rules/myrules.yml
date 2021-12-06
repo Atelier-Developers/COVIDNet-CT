@@ -1,0 +1,11 @@
+groups:
+  - name: my-rule
+    rules:
+      - record: job:node_cpu_seconds:idle_avg_rate5m
+        expr: avg without (cpu) (rate(node_cpu_seconds_total{mode="idle"}[5m]))
+
+      - alert: NodeExporterDown
+        expr: up{job='my_node_exporter'} == 0
+        for: 1m
+        labels:
+          severity: critical

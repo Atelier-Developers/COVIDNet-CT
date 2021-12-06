@@ -4,4 +4,24 @@ services:
     build:
       context: .
     restart: on-failure
+    network_mode: host
     tty: true
+  alert_manager:
+    image: prom/alertmanager:v0.23.0
+    network_mode: host
+  prometheus:
+    image: prom/prometheus:v2.31.1
+    network_mode: host
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./rules:/etc/prometheus/rules
+  node_exporter:
+    image: prom/node-exporter:v1.2.2
+    container_name: node_exporter
+    command:
+      - "--path.rootfs=/host"
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - "/:/host:ro,rslave"
