@@ -67,6 +67,7 @@ MainWindow::make_temp_image() {
 
 void MainWindow::on_image_preview_clicked() {
     ui->status_lbl->setText("Loading...");
+    ui->image_preview->setDisabled(true);
     ui->status_lbl->update();
     QApplication::instance()->processEvents();
 
@@ -78,6 +79,7 @@ void MainWindow::on_image_preview_clicked() {
 
         image_window->show();
         ui->status_lbl->setText("");
+        ui->image_preview->setEnabled(true);
         return;
     }
     QString *image_path = new QString(ui->file_directory->toPlainText());
@@ -91,11 +93,13 @@ void MainWindow::on_image_preview_clicked() {
 
 void MainWindow::on_analyze_clicked() {
     ui->status_lbl->setText("Inferring...");
+    ui->analyze->setDisabled(true);
     ui->status_lbl->update();
     QApplication::instance()->processEvents();
 
     NetworkResult* result = run_network();
     ui->status_lbl->setText("");
+    ui->analyze->setEnabled(true);
 
     Result* result_window = new Result(this, result, ui->file_directory->toPlainText());
     result_window->show();
