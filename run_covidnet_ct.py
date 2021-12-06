@@ -265,14 +265,15 @@ class COVIDNetCTRunner:
             heatmap, class_pred, class_prob = run_gradcam(
                 self.graph, final_conv, pooled_grads, self.sess, image)
 
-            print('\nPredicted Class: ' + CLASS_NAMES[class_pred])
-            print('Confidences: {}' .format(class_prob))
+            print(CLASS_NAMES[class_pred[0]], end=" ")
+            print(' '.join(
+                '{}'.format(conf) for name, conf in zip(CLASS_NAMES, class_prob[0])))
 
             # Show image
             fig, ax = plt.subplots(1, 1, figsize=(10, 5))
             plt.subplots_adjust(hspace=0.01)
             # ax[0].imshow(image[0])
-            plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred], class_prob))
+            plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred[0]], class_prob[0, class_pred[0]]))
             ax.imshow(image[0])
             ax.imshow(heatmap, cmap='jet', alpha=0.4)
             if not os.path.exists("assets/heatmaps"):

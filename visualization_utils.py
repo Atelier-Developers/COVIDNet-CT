@@ -65,8 +65,8 @@ def run_gradcam(graph, final_conv, pooled_grads, sess, image):
             [final_conv, pooled_grads, CLASS_PRED_TENSOR, CLASS_PROB_TENSOR],
             feed_dict={IMAGE_INPUT_TENSOR: image, TRAINING_PH_TENSOR: False})
         final_conv_out = final_conv_out[0]
-        class_pred = class_pred[0]
-        class_prob = class_prob[0, class_pred]
+        # class_pred = class_pred[0]
+        # class_prob = class_prob[0, class_pred]
 
         # Compute heatmap as gradient-weighted mean of activations
         for i in range(pooled_grads_out.shape[0]):
