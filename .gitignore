@@ -10,6 +10,7 @@ output/
 gensynth/
 /assets/outputs
 /assets/heatmaps
+/assets/temp
 /interface/interface
 /interface/*.o
 /interface/.qmake.stash
