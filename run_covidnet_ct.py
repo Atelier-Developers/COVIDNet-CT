@@ -423,4 +423,4 @@ if __name__ == '__main__':
         )
     elif mode == 'infer':
         # Run inference
-        runner.infer(read_image_any_type(args.image_file), not args.no_crop, args.heatmap, args.heatmap_dir)
+        runner.infer(read_image_any_type(args.image_file, False), not args.no_crop, args.heatmap, args.heatmap_dir)
