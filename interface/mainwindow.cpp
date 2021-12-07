@@ -75,7 +75,7 @@ void MainWindow::on_image_preview_clicked() {
     if (image_is_dicom()){
         QString *image_path = new QString(make_temp_image());
 
-        ImageWindow* image_window = new ImageWindow(this, image_path, true);
+        ImageWindow* image_window = new ImageWindow(this, image_path, true, false);
 
         image_window->show();
         ui->status_lbl->setText("");
@@ -84,7 +84,7 @@ void MainWindow::on_image_preview_clicked() {
     }
     QString *image_path = new QString(ui->file_directory->toPlainText());
 
-    ImageWindow* image_window = new ImageWindow(this, image_path);
+    ImageWindow* image_window = new ImageWindow(this, image_path, false);
 
     ui->status_lbl->setText("");
     image_window->show();

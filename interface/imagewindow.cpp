@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QDebug>
 
-ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_able) :
+ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_able, bool is_temp) :
     QDialog(parent),
     ui(new Ui::ImageWindow)
 {
@@ -19,6 +19,7 @@ ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_abl
     image_path = *image_address;
 
     move_able = _move_able;
+    _is_temp = is_temp;
     ui->save_img->setVisible(move_able);
 
 }
@@ -27,7 +28,7 @@ ImageWindow::~ImageWindow()
 {
     delete ui;
     qDebug() << "DELETEING:" << image_path;
-    if (QFile::exists(image_path))
+    if (QFile::exists(image_path) && _is_temp)
         QFile::remove(image_path);
 }
 

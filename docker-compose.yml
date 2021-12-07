@@ -6,6 +6,13 @@ services:
     restart: on-failure
     network_mode: host
     tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
   alert_manager:
     image: prom/alertmanager:v0.23.0
     network_mode: host
