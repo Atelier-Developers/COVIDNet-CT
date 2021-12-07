@@ -1,9 +1,13 @@
 FROM alpharmike/covid-net-ct:latest
 
-RUN pip3 install pydicom && \
-    pip3 install Pillow
+RUN apt-get update && \
+  apt-get install -y build-essential qt5-default \
+  --no-install-recommends
 
-RUN git pull
+RUN pip3 install pydicom && \
+    pip3 install Pillow && \
+    pip3 install prometheus-client
+
 
 WORKDIR interface
 
@@ -11,4 +15,4 @@ RUN qmake interface.pro && make
 
 WORKDIR /app/COVIDNet-CT
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["python", "main.py"]

@@ -17,3 +17,4 @@ gensynth/
 /interface/moc*
 /interface/ui_*.h
 /interface/Makefile
+/grafana-storage/

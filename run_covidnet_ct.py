@@ -12,6 +12,7 @@ from math import ceil
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from main import inference_histogram
 
 # os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -226,6 +227,7 @@ class COVIDNetCTRunner:
                 disp.plot(include_values=True, cmap='Blues', ax=ax, xticks_rotation='horizontal', values_format='.5g')
                 plt.show()
 
+    @inference_histogram.time()
     def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png", retrieve_result = False):
         """Run inference on the given image"""
         # Load and preprocess image

@@ -4,15 +4,11 @@ services:
     build:
       context: .
     restart: on-failure
-    network_mode: host
+    networks:
+      - monitoring
+    ports:
+    - "8090:8090"
     tty: true
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
   alert_manager:
     image: prom/alertmanager:v0.23.0
     network_mode: host
@@ -34,6 +30,8 @@ services:
       - monitoring
     ports:
       - "9090:9090"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
@@ -51,6 +49,19 @@ services:
       - monitoring
     ports:
       - "9100:9100"
+  grafana:
+    image: grafana/grafana:latest
+    user: "0"
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./grafana-storage:/var/lib/grafana
 
 networks:
   monitoring:
