@@ -61,8 +61,8 @@ MainWindow::make_temp_image() {
     process->waitForFinished(-1);
     QString p_stdout(process->readAllStandardOutput());
     process->close();
-
-    return QString("../assets/temp/dicom.png");
+    QStringList tmp_path = ui->file_directory->toPlainText().split(QString("/")).back().split(QString("."));
+    return QString("../assets/temp/%1.png").arg(tmp_path[0]);
 }
 
 void MainWindow::on_image_preview_clicked() {
