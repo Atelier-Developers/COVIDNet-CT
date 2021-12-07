@@ -226,7 +226,7 @@ class COVIDNetCTRunner:
                 disp.plot(include_values=True, cmap='Blues', ax=ax, xticks_rotation='horizontal', values_format='.5g')
                 plt.show()
 
-    def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png"):
+    def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png", retrieve_result = False):
         """Run inference on the given image"""
         # Load and preprocess image
         from visualization_utils import auto_body_crop, load_and_preprocess, make_gradcam_graph, run_gradcam
@@ -255,6 +255,8 @@ class COVIDNetCTRunner:
                 print('\nPredicted Class: ' + CLASS_NAMES[class_[0]])
                 print('Confidences: ' + ', '.join(
                     '{}: {}'.format(name, conf) for name, conf in zip(CLASS_NAMES, probs[0])))
+                if retrieve_result:
+                    return CLASS_NAMES[class_[0]]
         else:
 
             final_conv, pooled_grads = make_gradcam_graph(self.graph)
@@ -279,6 +281,9 @@ class COVIDNetCTRunner:
             if not os.path.exists("assets/temp"):
                 os.makedirs("assets/temp")
             plt.savefig("assets/temp/heatmap.png", bbox_inches='tight')
+            if retrieve_result:
+                return CLASS_NAMES[class_pred[0]]
+
 
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
