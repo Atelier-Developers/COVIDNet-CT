@@ -1,5 +1,4 @@
 #include "networkresult.h"
-#include <QDebug>
 
 #include <QString>
 #include <QList>
@@ -11,10 +10,7 @@ NetworkResult::NetworkResult(const QString & _result)
 QString
 NetworkResult::display() {
     // Normal, Pneumonia, COVID-19
-
     QStringList res_list = result.split(QString("\n")).back().split(QString(" "));
-    qDebug() << "LST1: " << result.split(QString("\n")).back();
-    qDebug() << "LST2: " << result.split(QString("\n")).back().split(QString(" "));
     return QString("Predicted Class: %1\n"
                     "Normal: %2\n"
                     "Pneumonia: %3\n"

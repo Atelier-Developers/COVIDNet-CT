@@ -43,7 +43,6 @@ FeedbackForm::get_feedback_path(QString path) {
 
     auto lst_slash = path.split("/");
     auto lst_backslash = lst_slash.back().split("\\");
-    qDebug() << lst_slash << "     " << lst_backslash;
     QString new_path = QString("../feedback/") + lst_backslash.back();
     return new_path;
 }

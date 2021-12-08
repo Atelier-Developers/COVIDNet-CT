@@ -4,7 +4,6 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QFile>
-#include <QDebug>
 
 ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_able, bool is_temp) :
     QDialog(parent),
@@ -27,7 +26,6 @@ ImageWindow::ImageWindow(QWidget *parent, QString *image_address, bool _move_abl
 ImageWindow::~ImageWindow()
 {
     delete ui;
-    qDebug() << "DELETEING:" << image_path;
     if (QFile::exists(image_path) && _is_temp)
         QFile::remove(image_path);
 }
