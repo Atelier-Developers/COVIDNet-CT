@@ -271,7 +271,7 @@ class COVIDNetCTRunner:
 
             print(CLASS_NAMES[class_pred[0]], end=" ")
             print(' '.join(
-                '{}'.format(conf) for name, conf in zip(CLASS_NAMES, class_prob[0])), end="")
+                '{:.5f}'.format(conf) for name, conf in zip(CLASS_NAMES, class_prob[0])), end="")
 
             # Show image
             fig, ax = plt.subplots(1, 1, figsize=(10, 5))
