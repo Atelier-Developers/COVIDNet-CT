@@ -3,6 +3,7 @@
 #include <QDataStream>
 #include <QDebug>
 #include <QDir>
+#include <QtSql>
 #include "feedbackform.h"
 #include "ui_feedbackform.h"
 
@@ -21,14 +22,47 @@ FeedbackForm::~FeedbackForm()
 }
 
 void FeedbackForm::on_submit_button_clicked() {
-    QFile::copy(file_path, FeedbackForm::get_feedback_path(file_path));
 
-    QFile file(FeedbackForm::get_feedback_path(file_path) + ".dsc");
-   if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-       return;
+    {
+        // Setting up a default database connection
+        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("db");
+        db.setDatabaseName("aphrodite_feedbacks");
+        db.setUserName("aphrodite");
+        db.setPassword("goddessOfLove");
+        bool ok = db.open();
 
-   QTextStream out(&file);
-   out << "Description:\n" << ui->feedback_desc->toPlainText() << "\n" << "Network Result:\n" << network_result;
+        if (!ok)
+        {
+            qDebug() << "DB NOT OPENED";
+        }
+
+        //    QFile::copy(file_path, FeedbackForm::get_feedback_path(file_path));
+        //
+        //    QFile file(FeedbackForm::get_feedback_path(file_path) + ".dsc");
+        //   if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        //       return;
+
+        //   QTextStream out(&file);
+
+        // Prepare query and execute
+        QSqlQuery query;
+        query.prepare("INSERT INTO FEEDBACK (description, analysis, username, image_path, heatmap_path) VALUES (:description, :analysis, :username, :image_path, :heatmap_path)");
+        query.bindValue(":description", ui->feedback_desc->toPlainText());
+        query.bindValue(":analysis", network_result);
+        query.bindValue(":username", "admin");
+        query.bindValue(":image_path", file_path);
+        query.bindValue(":heatmap_path", "/path/to/heatmap");
+        query.exec();
+
+        // Close database
+        db.close();
+    }
+    //   out << "Description:\n" << ui->feedback_desc->toPlainText() << "\n" << "Network Result:\n" << network_result;
+
+   // Closing the connection
+   QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
+
    this->close();
 }
 
