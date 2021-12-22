@@ -10,7 +10,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    feedbackdata.cpp \
+    feedbackdetails.cpp \
     feedbackform.cpp \
+    feedbacklist.cpp \
     imagewindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -18,14 +21,19 @@ SOURCES += \
     result.cpp
 
 HEADERS += \
+    feedbackdata.h \
+    feedbackdetails.h \
     feedbackform.h \
+    feedbacklist.h \
     imagewindow.h \
     mainwindow.h \
     networkresult.h \
     result.h
 
 FORMS += \
+    feedbackdetails.ui \
     feedbackform.ui \
+    feedbacklist.ui \
     imagewindow.ui \
     mainwindow.ui \
     result.ui

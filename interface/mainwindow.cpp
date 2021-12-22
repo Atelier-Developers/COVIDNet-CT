@@ -3,11 +3,13 @@
 #include "networkresult.h"
 #include "ui_mainwindow.h"
 #include "result.h"
+#include "feedbacklist.h"
 #include <iostream>
 
 #include <QProcess>
 #include <QDir>
 #include <QFileDialog>
+#include <QSqlDatabase>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -15,11 +17,30 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    if(initial_database()){
+        ui->status_lbl->setText("");
+    }
+    else{
+        ui->show_feedback->setEnabled(false);
+        ui->status_lbl->setText("Faild to load database!");
+    }
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+bool
+MainWindow::initial_database() {
+    return true;
+    QSqlDatabase db = QSqlDatabase::addDatabase("feedback_sql");
+    db.setHostName("db");
+    db.setDatabaseName("aphrodite_feedbacks");
+    db.setUserName("aphrodite");
+    db.setPassword("goddessOfLove");
+    return db.open();
 }
 
 NetworkResult *
@@ -112,5 +133,12 @@ void MainWindow::on_browser_clicked()
                                 tr("Find Files"), QDir::currentPath() + "/../");
 
     ui->file_directory->setText(directory);
+}
+
+
+void MainWindow::on_show_feedback_clicked()
+{
+    FeedbackList* feedback_list = new FeedbackList(this);
+    feedback_list->show();
 }
 

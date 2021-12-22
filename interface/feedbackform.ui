@@ -19,10 +19,10 @@
      <x>10</x>
      <y>20</y>
      <width>381</width>
-     <height>261</height>
+     <height>272</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
     <item>
      <widget class="QTextEdit" name="feedback_desc">
       <property name="placeholderText">
@@ -32,6 +32,19 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QTextEdit" name="username">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>28</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>username</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
