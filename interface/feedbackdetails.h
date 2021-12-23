@@ -19,6 +19,8 @@ public:
 
 private:
     Ui::FeedbackDetails *ui;
+    QString make_temp_image(FeedbackData* data);
+    bool image_is_dicom(FeedbackData* data);
 };
 
 #endif // FEEDBACKDETAILS_H

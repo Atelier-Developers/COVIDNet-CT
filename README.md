@@ -104,7 +104,7 @@ These are the final test results for the current COVID-Net CT models on the COVI
 
 ### COVID-Net CT-2 L (2A)
 <p>
-	<img src="assets/cm-covidnet-ct-2-l.png" alt="photo not available" width="50%" height="50%">
+	<img src="assets/model_sample_images/cm-covidnet-ct-2-l.png" alt="photo not available" width="50%" height="50%">
 	<br>
 	<em>Confusion matrix for COVID-Net CT-2 L on the COVIDx CT-2A test dataset.</em>
 </p>
@@ -143,7 +143,7 @@ These are the final test results for the current COVID-Net CT models on the COVI
 
 ### COVID-Net CT-2 S (2A)
 <p>
-	<img src="assets/cm-covidnet-ct-2-s.png" alt="photo not available" width="50%" height="50%">
+	<img src="assets/model_sample_images/cm-covidnet-ct-2-s.png" alt="photo not available" width="50%" height="50%">
 	<br>
 	<em>Confusion matrix for COVID-Net CT-2 S on the COVIDx CT-2A test dataset.</em>
 </p>
