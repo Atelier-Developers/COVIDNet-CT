@@ -11,6 +11,7 @@ import numpy as np
 from math import ceil
 import tensorflow as tf
 import matplotlib.pyplot as plt
+from prometheus_client import  CollectorRegistry, multiprocess, start_http_server
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from main import inference_histogram, inference_count
 
@@ -92,6 +93,16 @@ def get_lr_scheduler(init_lr, global_step=None, decay_steps=None, schedule_type=
         return tf.train.cosine_decay(init_lr, global_step, decay_steps)
     elif schedule_type == 'exp_decay':
         return tf.train.exponential_decay(init_lr, global_step, decay_steps)
+
+def start_process():
+    registry = CollectorRegistry()
+    multiprocess.MultiProcessCollector(registry, path="/app/COVIDNet-CT/multiprocess_metrics")
+    start_http_server(8000)
+    # push_to_gateway('localhost:8090', job='batchA', registry=registry)
+
+
+def exit_process():
+    multiprocess.mark_process_dead(os.getpid())
 
 
 class Metrics:
@@ -231,6 +242,9 @@ class COVIDNetCTRunner:
     def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png", retrieve_result = False):
         """Run inference on the given image"""
         # Load and preprocess image
+        start_process()
+        # inference_count.inc()
+        print("INFERENCE COUNT: " + str(inference_count._value.get()))
         from visualization_utils import auto_body_crop, load_and_preprocess, make_gradcam_graph, run_gradcam
         if not draw_heatmap:
             image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
@@ -285,7 +299,6 @@ class COVIDNetCTRunner:
             plt.savefig("assets/temp/heatmap.png", bbox_inches='tight')
             if retrieve_result:
                 return CLASS_NAMES[class_pred[0]]
-        inference_count.inc()
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
         # Create optimizer
@@ -369,6 +382,9 @@ class COVIDNetCTRunner:
 
 
 if __name__ == '__main__':
+
+    # os.environ["PROMETHEUS_MULTIPROC_DIR"] = "/app/COVIDNet-CT/multiprocess_metrics/"
+
     # Suppress most TF messages
     tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
@@ -430,3 +446,4 @@ if __name__ == '__main__':
     elif mode == 'infer':
         # Run inference
         runner.infer(read_image_any_type(args.image_file, False), not args.no_crop, args.heatmap, args.heatmap_dir)
+

@@ -1,4 +1,5 @@
 import prometheus_client
+import os
 from prometheus_client import Histogram, Counter, Summary
 
 inference_histogram = Summary('inference_latency_seconds', 'Description of inference histogram')

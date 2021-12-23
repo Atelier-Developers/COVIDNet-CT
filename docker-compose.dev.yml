@@ -10,6 +10,7 @@ services:
     - ./assets:/app/COVIDNet-CT/assets
     - ./feedback:/app/COVIDNet-CT/feedback
     - ./interface:/app/COVIDNet-CT/interface
+    - ./multiprocess_metrics:/app/COVIDNet-CT/multiprocess_metrics
     - ./tests:/app/COVIDNet-CT/tests
     - /tmp/.X11-unix/:/tmp/.X11-unix
     environment:
