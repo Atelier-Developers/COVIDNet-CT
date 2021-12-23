@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     ui->image_preview->setEnabled(false);
+    ui->analyze->setEnabled(false);
 
     // Connect on_file_directory_text_change slot on textChanged signal for ui->file_directory
     connect(ui->file_directory, &QTextEdit::textChanged, this, &MainWindow::on_file_directory_text_change);
@@ -144,10 +145,17 @@ void MainWindow::on_browser_clicked()
 
 void MainWindow::on_file_directory_text_change()
 {
+    // Change the buttons' state based on text field
     if (ui->file_directory->toPlainText().size() == 0)
+    {
         ui->image_preview->setEnabled(false);
+        ui->analyze->setEnabled(false);
+    }
     else
+    {
         ui->image_preview->setEnabled(true);
+        ui->analyze->setEnabled(true);
+    }
 }
 
 
