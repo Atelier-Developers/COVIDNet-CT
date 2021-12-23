@@ -1,8 +1,8 @@
 import prometheus_client
-from prometheus_client import Histogram
+from prometheus_client import Histogram, Counter, Summary
 
-inference_histogram = Histogram('inference_latency_seconds', 'Description of inference histogram')
-inference_histogram.observe(4.7)
+inference_histogram = Summary('inference_latency_seconds', 'Description of inference histogram')
+inference_count = Counter('inference_count', 'Number of inferences')
 
 if __name__ == '__main__':
     PORT = 8090

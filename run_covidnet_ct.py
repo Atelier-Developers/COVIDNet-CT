@@ -12,7 +12,7 @@ from math import ceil
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from main import inference_histogram
+from main import inference_histogram, inference_count
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -285,8 +285,7 @@ class COVIDNetCTRunner:
             plt.savefig("assets/temp/heatmap.png", bbox_inches='tight')
             if retrieve_result:
                 return CLASS_NAMES[class_pred[0]]
-
-
+        inference_count.inc()
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
         # Create optimizer
