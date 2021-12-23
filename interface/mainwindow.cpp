@@ -18,12 +18,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->image_preview->setEnabled(false);
+
     if(initial_database()){
         ui->status_lbl->setText("Database connected.");
     }
     else{
         ui->show_feedback->setEnabled(false);
-        ui->status_lbl->setText("Failed to load database!");
+        ui->status_lbl->setText("Failed to connect to the database!");
     }
 }
 
@@ -85,6 +87,7 @@ MainWindow::make_temp_image() {
 }
 
 void MainWindow::on_image_preview_clicked() {
+    QString prevStatusText = ui->status_lbl->text();
     ui->status_lbl->setText("Loading...");
     ui->image_preview->setDisabled(true);
     ui->status_lbl->update();
@@ -97,7 +100,7 @@ void MainWindow::on_image_preview_clicked() {
         ImageWindow* image_window = new ImageWindow(this, image_path, true, false);
 
         image_window->show();
-        ui->status_lbl->setText("");
+        ui->status_lbl->setText(prevStatusText);
         ui->image_preview->setEnabled(true);
         return;
     }
@@ -105,8 +108,9 @@ void MainWindow::on_image_preview_clicked() {
 
     ImageWindow* image_window = new ImageWindow(this, image_path, false);
 
-    ui->status_lbl->setText("");
     image_window->show();
+    ui->status_lbl->setText(prevStatusText);
+    ui->image_preview->setEnabled(true);
 }
 
 
@@ -117,7 +121,7 @@ void MainWindow::on_analyze_clicked() {
     QApplication::instance()->processEvents();
 
     NetworkResult* result = run_network();
-    ui->status_lbl->setText("");
+    ui->status_lbl->setText("Inference complete.");
     ui->analyze->setEnabled(true);
 
     Result* result_window = new Result(this, result, ui->file_directory->toPlainText());
@@ -132,6 +136,10 @@ void MainWindow::on_browser_clicked()
                                 tr("Find Files"), QDir::currentPath() + "/../");
 
     ui->file_directory->setText(directory);
+    if (ui->file_directory->toPlainText().size() == 0)
+        ui->image_preview->setEnabled(false);
+    else
+        ui->image_preview->setEnabled(true);
 }
 
 
