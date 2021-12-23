@@ -17,8 +17,8 @@ FeedbackList::FeedbackList(QWidget *parent) :
     query.exec("SELECT * FROM FEEDBACK");
 
     while (query.next()) {
-        feedback_map[query.value(0).toInt()] = new FeedbackData(query.value(1).toString(),
-                                                                query.value(5).toString(),
+        feedback_map[query.value(0).toInt()] = new FeedbackData(query.value(5).toString(),
+                                                                query.value(1).toString(),
                                                                 query.value(3).toString(),
                                                                 query.value(4).toString(),
                                                                 query.value(2).toString());
