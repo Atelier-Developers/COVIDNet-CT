@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->image_preview->setEnabled(false);
 
+    // Connect on_file_directory_text_change slot on textChanged signal for ui->file_directory
+    connect(ui->file_directory, &QTextEdit::textChanged, this, &MainWindow::on_file_directory_text_change);
+
     if(initial_database()){
         ui->status_lbl->setText("Database connected.");
     }
@@ -36,6 +39,7 @@ MainWindow::~MainWindow()
 
 bool
 MainWindow::initial_database() {
+    // Connect to database using the QMYSQL driver
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("db");
     db.setDatabaseName("aphrodite_feedbacks");
@@ -136,6 +140,10 @@ void MainWindow::on_browser_clicked()
                                 tr("Find Files"), QDir::currentPath() + "/../");
 
     ui->file_directory->setText(directory);
+}
+
+void MainWindow::on_file_directory_text_change()
+{
     if (ui->file_directory->toPlainText().size() == 0)
         ui->image_preview->setEnabled(false);
     else

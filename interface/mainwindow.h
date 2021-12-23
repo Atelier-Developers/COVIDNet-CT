@@ -26,6 +26,8 @@ private slots:
 
     void on_show_feedback_clicked();
 
+    void on_file_directory_text_change();
+
 private:
     Ui::MainWindow *ui;
 
