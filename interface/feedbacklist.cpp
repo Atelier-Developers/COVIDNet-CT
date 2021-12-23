@@ -23,7 +23,8 @@ FeedbackList::FeedbackList(QWidget *parent) :
                                                                 query.value(4).toString(),
                                                                 query.value(2).toString());
 
-        ui->feedback_list->addItem(query.value(0).toString());
+        QString tmp_path = query.value(5).toString().split(QString("/")).back();
+        ui->feedback_list->addItem("Feedback " + query.value(0).toString() + ": On " + tmp_path + " By " + query.value(3).toString());
 
     }
 
@@ -36,7 +37,8 @@ FeedbackList::~FeedbackList()
 
 void FeedbackList::on_feedback_list_itemDoubleClicked(QListWidgetItem *item)
 {
-    FeedbackDetails *feedback_details = new FeedbackDetails(this, feedback_map[item->text().toInt()]);
+    QStringList tmp_list = item->text().split(' ')[1].split(':');
+    FeedbackDetails *feedback_details = new FeedbackDetails(this, feedback_map[tmp_list[0].toInt()]);
     feedback_details->show();
 }
 
