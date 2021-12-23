@@ -45,5 +45,5 @@ FeedbackData::analysis() {
 
 QString
 FeedbackData::repr(){
-    return desc().sliced(20) + "...";
+    return desc().left(20) + "...";
 }

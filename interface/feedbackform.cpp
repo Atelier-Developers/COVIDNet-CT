@@ -23,8 +23,6 @@ FeedbackForm::~FeedbackForm()
 
 void FeedbackForm::on_submit_button_clicked() {
 
-    QSqlDatabase db = QSqlDatabase::database("feedback_sql");
-
     QSqlQuery query;
     query.prepare("INSERT INTO FEEDBACK (description, analysis, username, image_path, heatmap_path) VALUES (:description, :analysis, :username, :image_path, :heatmap_path)");
     query.bindValue(":description", ui->feedback_desc->toPlainText());

@@ -13,10 +13,7 @@ FeedbackList::FeedbackList(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QSqlDatabase db = QSqlDatabase::database("feedback_sql");
-
-    QSqlQuery query(db);
-
+    QSqlQuery query;
     query.exec("SELECT * FROM FEEDBACK");
 
     while (query.next()) {

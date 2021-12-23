@@ -19,11 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     if(initial_database()){
-        ui->status_lbl->setText("");
+        ui->status_lbl->setText("Database connected.");
     }
     else{
         ui->show_feedback->setEnabled(false);
-        ui->status_lbl->setText("Faild to load database!");
+        ui->status_lbl->setText("Failed to load database!");
     }
 }
 
@@ -34,8 +34,7 @@ MainWindow::~MainWindow()
 
 bool
 MainWindow::initial_database() {
-    return true;
-    QSqlDatabase db = QSqlDatabase::addDatabase("feedback_sql");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("db");
     db.setDatabaseName("aphrodite_feedbacks");
     db.setUserName("aphrodite");
