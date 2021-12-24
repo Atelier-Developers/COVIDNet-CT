@@ -1,0 +1,1 @@
+export PROMETHEUS_MULTIPROC_DIR="/app/COVIDNet-CT/multiprocess_metrics"
