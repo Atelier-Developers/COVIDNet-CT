@@ -6,7 +6,8 @@ RUN apt-get update && \
 
 RUN pip3 install pydicom && \
     pip3 install Pillow && \
-    pip3 install prometheus-client
+    pip3 install prometheus-client && \
+    pip3 install pymitter
 
 
 WORKDIR interface

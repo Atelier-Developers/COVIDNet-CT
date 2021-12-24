@@ -18,3 +18,5 @@ gensynth/
 /interface/ui_*.h
 /interface/Makefile
 /grafana-storage/
+/multiprocess_metrics
+register_metrics.sh
