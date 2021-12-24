@@ -5,7 +5,6 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 from data_utils import auto_body_crop, multi_ext_file_iter, IMG_EXTENSIONS
-from run_covidnet_ct import create_session, load_graph, load_ckpt
 
 # Tensor names
 IMAGE_INPUT_TENSOR = 'Placeholder:0'

@@ -12,8 +12,9 @@ from math import ceil
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from prometheus_client import CollectorRegistry, multiprocess, start_http_server, push_to_gateway, REGISTRY
+from prometheus_client import Histogram, Counter, Summary
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from main import inference_histogram
+# from main import inference_histogram
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -45,6 +46,7 @@ OUTPUT_DIR = 'output'
 # Class names ordered by class index
 CLASS_NAMES = ('Normal', 'Pneumonia', 'COVID-19')
 
+inference_histogram = Histogram('inference_latency_seconds', 'Description of inference histogram', registry=REGISTRY)
 
 def dense_grad_filter(gvs):
     """Filter to apply gradient updates to dense layers only"""
