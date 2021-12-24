@@ -22,7 +22,7 @@ Result::~Result()
     auto lst_backslash = lst_slash.back().split("\\");
     QString new_path = lst_backslash.back().split(".")[0];
 
-    QString image_path = "../assets/temp/" + new_path + ".dcm";
+    QString image_path = "../assets/temp/" + new_path + ".png";
     if (QFile::exists(image_path))
         QFile::remove(image_path);
     delete ui;
