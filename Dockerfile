@@ -15,4 +15,6 @@ RUN qmake interface.pro && make
 
 WORKDIR /app/COVIDNet-CT
 
+ENV PROMETHEUS_MULTIPROC_DIR /app/COVIDNet-CT/multiprocess_metrics/
+
 CMD ["python", "main.py"]
