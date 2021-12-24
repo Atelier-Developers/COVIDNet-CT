@@ -58,7 +58,7 @@ MainWindow::run_network(){
 
     QProcess *process = new QProcess(this);
     process->start(command, params);
-    process->execute(command, params);
+//    process->execute(command, params);
     process->waitForFinished(-1);
     QString p_stdout(process->readAllStandardOutput());
     process->close();

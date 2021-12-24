@@ -82,6 +82,13 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_USER: aphrodite
       MYSQL_PASSWORD: goddessOfLove
+  pushgateway:
+    image: prom/pushgateway:latest
+    ports:
+      - "9091:9091"
+    restart: always
+    networks:
+      - monitoring
 
 networks:
   monitoring:

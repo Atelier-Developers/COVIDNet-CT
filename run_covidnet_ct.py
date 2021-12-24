@@ -11,9 +11,9 @@ import numpy as np
 from math import ceil
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from prometheus_client import  CollectorRegistry, multiprocess, start_http_server
+from prometheus_client import CollectorRegistry, multiprocess, start_http_server, push_to_gateway, REGISTRY
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from main import inference_histogram, inference_count
+from main import inference_histogram
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -94,19 +94,10 @@ def get_lr_scheduler(init_lr, global_step=None, decay_steps=None, schedule_type=
     elif schedule_type == 'exp_decay':
         return tf.train.exponential_decay(init_lr, global_step, decay_steps)
 
-def start_process():
-    registry = CollectorRegistry()
-    multiprocess.MultiProcessCollector(registry, path="/app/COVIDNet-CT/multiprocess_metrics")
-    start_http_server(8000)
-    # push_to_gateway('localhost:8090', job='batchA', registry=registry)
-
-
-def exit_process():
-    multiprocess.mark_process_dead(os.getpid())
-
 
 class Metrics:
     """Lightweight class for tracking metrics"""
+
     def __init__(self):
         num_classes = len(CLASS_NAMES)
         self.labels = list(range(num_classes))
@@ -135,6 +126,7 @@ class Metrics:
 
 class COVIDNetCTRunner:
     """Primary training/testing/inference class"""
+
     def __init__(self, meta_file, ckpt=None, data_dir=None, input_height=512, input_width=512,
                  lr=0.001, momentum=0.9, fc_only=False, max_bbox_jitter=0.025, max_rotation=10,
                  max_shear=0.15, max_pixel_shift=10, max_pixel_scale_change=0.2):
@@ -239,12 +231,9 @@ class COVIDNetCTRunner:
                 plt.show()
 
     @inference_histogram.time()
-    def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png", retrieve_result = False):
+    def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png", retrieve_result=False):
         """Run inference on the given image"""
         # Load and preprocess image
-        start_process()
-        # inference_count.inc()
-        print("INFERENCE COUNT: " + str(inference_count._value.get()))
         from visualization_utils import auto_body_crop, load_and_preprocess, make_gradcam_graph, run_gradcam
         if not draw_heatmap:
             image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
@@ -291,7 +280,8 @@ class COVIDNetCTRunner:
             fig, ax = plt.subplots(1, 1, figsize=(10, 5))
             plt.subplots_adjust(hspace=0.01)
             # ax[0].imshow(image[0])
-            plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred[0]], class_prob[0, class_pred[0]]))
+            plt.suptitle('Predicted Class: {} ({:.3f} confidence)'.format(CLASS_NAMES[class_pred[0]],
+                                                                          class_prob[0, class_pred[0]]))
             ax.imshow(image[0])
             ax.imshow(heatmap, cmap='jet', alpha=0.4)
             if not os.path.exists("assets/temp"):
@@ -299,6 +289,7 @@ class COVIDNetCTRunner:
             plt.savefig("assets/temp/heatmap.png", bbox_inches='tight')
             if retrieve_result:
                 return CLASS_NAMES[class_pred[0]]
+
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
         # Create optimizer
@@ -382,9 +373,6 @@ class COVIDNetCTRunner:
 
 
 if __name__ == '__main__':
-
-    # os.environ["PROMETHEUS_MULTIPROC_DIR"] = "/app/COVIDNet-CT/multiprocess_metrics/"
-
     # Suppress most TF messages
     tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
