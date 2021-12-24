@@ -28,6 +28,8 @@ FeedbackList::FeedbackList(QWidget *parent) :
 
     }
 
+    ui->loading->setText("");
+
 }
 
 FeedbackList::~FeedbackList()
