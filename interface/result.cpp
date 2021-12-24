@@ -3,6 +3,8 @@
 #include "ui_result.h"
 #include "imagewindow.h"
 
+#include <QFile>
+
 Result::Result(QWidget *parent, NetworkResult* _network_result, QString _file_path) :
     QDialog(parent),
     ui(new Ui::Result),
@@ -16,6 +18,13 @@ Result::Result(QWidget *parent, NetworkResult* _network_result, QString _file_pa
 
 Result::~Result()
 {
+    auto lst_slash = file_path.split("/");
+    auto lst_backslash = lst_slash.back().split("\\");
+    QString new_path = lst_backslash.back().split(".")[0];
+
+    QString image_path = "../assets/temp/" + new_path + ".dcm";
+    if (QFile::exists(image_path))
+        QFile::remove(image_path);
     delete ui;
 }
 
