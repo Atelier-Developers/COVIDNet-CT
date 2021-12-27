@@ -233,7 +233,7 @@ class COVIDNetCTRunner:
                 plt.show()
 
     @inference_histogram.time()
-    def infer(self, image_file, autocrop=True, draw_heatmap=False, heatmap_dir="heatmap.png", retrieve_result=False):
+    def infer(self, image_file, autocrop=True, draw_heatmap=False, retrieve_result=False):
         """Run inference on the given image"""
         # Load and preprocess image
         from visualization_utils import auto_body_crop, load_and_preprocess, make_gradcam_graph, run_gradcam
