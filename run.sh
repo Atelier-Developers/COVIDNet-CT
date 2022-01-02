@@ -1,7 +1,7 @@
 build=$1
 mode=$2
 sudo rm -rf multiprocess_metrics/*.db
-export DISPLAY="$(grep nameserver /etc/resolv.conf | sed 's/nameserver //'):0"
+#export DISPLAY="$(grep nameserver /etc/resolv.conf | sed 's/nameserver //'):0"
 if [ "$build" = "build" ];
 then
 docker-compose -f docker-compose.dev.yml -f docker-compose.yml up --build -d
