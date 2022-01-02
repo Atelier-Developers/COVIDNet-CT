@@ -13,15 +13,31 @@ groups:
         for: 1m
         labels:
           severity: critical
+        annotations:
+          summary: "Node Exporter is down"
+          description: "Node Exporter is down for more than 1 minutes"
+          timestamp: >
+            {{ with query "time()" }}{{ . | first | value | humanizeTimestamp }}{{ end }}
+
 
       - alert: LongInferenceLatency
         expr: job:inference_latency:avg_rate5m > 5
         for: 15s
         labels:
           severity: critical
+        annotations:
+          title: "Average inference latency exceeding 5 seconds"
+          description: "Average inference latency was longer than 5 seconds in the last 5 minutes"
+          timestamp: >
+            {{ with query "time()" }}{{ . | first | value | humanizeTimestamp }}{{ end }}
 
       - alert: COVIDOutbreak
-        expr: job:inference_pos_covid:delta_24h > 2
+        expr: job:inference_pos_covid:delta_24h > 5
         for: 15s
         labels:
           severity: critical
+        annotations:
+          title: "Too many COVID-19 cases detected in the last 24 hours"
+          description: "More than 5 COVID-19 cases were detected in the last 24 hours"
+          timestamp: >
+            {{ with query "time()" }}{{ . | first | value | humanizeTimestamp }}{{ end }}
