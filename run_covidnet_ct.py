@@ -12,7 +12,7 @@ from math import ceil
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from prometheus_client import CollectorRegistry, multiprocess, start_http_server, push_to_gateway, REGISTRY
-from prometheus_client import Histogram, Counter, Summary
+from prometheus_client import Histogram, Counter, Summary, Gauge
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 # from main import inference_histogram
 
@@ -46,7 +46,8 @@ OUTPUT_DIR = 'output'
 # Class names ordered by class index
 CLASS_NAMES = ('Normal', 'Pneumonia', 'COVID-19')
 
-inference_histogram = Histogram('inference_latency_seconds', 'Description of inference histogram', registry=REGISTRY)
+inference_histogram = Histogram('inference_latency_seconds', 'Latency of inference', registry=REGISTRY)
+inference_pos_covid = Gauge('inference_pos_covid', 'Gauge of positive COVID detections', multiprocess_mode='livesum', registry=REGISTRY)
 
 def dense_grad_filter(gvs):
     """Filter to apply gradient updates to dense layers only"""
@@ -262,6 +263,8 @@ class COVIDNetCTRunner:
                 print('\nPredicted Class: ' + CLASS_NAMES[class_[0]])
                 print('Confidences: ' + ', '.join(
                     '{}: {}'.format(name, conf) for name, conf in zip(CLASS_NAMES, probs[0])))
+                if CLASS_NAMES[class_[0]] == "COVID-19":
+                    inference_pos_covid.inc()
                 if retrieve_result:
                     return CLASS_NAMES[class_[0]]
         else:
@@ -289,6 +292,8 @@ class COVIDNetCTRunner:
             if not os.path.exists("assets/temp"):
                 os.makedirs("assets/temp")
             plt.savefig("assets/temp/heatmap.png", bbox_inches='tight')
+            if CLASS_NAMES[class_pred[0]] == "COVID-19":
+                inference_pos_covid.inc()
             if retrieve_result:
                 return CLASS_NAMES[class_pred[0]]
 
