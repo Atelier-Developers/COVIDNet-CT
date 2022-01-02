@@ -6,7 +6,11 @@ RUN apt-get update && \
 
 RUN pip3 install pydicom && \
     pip3 install Pillow && \
-    pip3 install prometheus-client
+    pip3 install prometheus-client && \
+    pip3 install numpy && \
+    pip3 install pylibjpeg pylibjpeg-libjpeg && \
+    pip3 install pypng && \
+    pip3 install SimpleITK
 
 
 WORKDIR interface
