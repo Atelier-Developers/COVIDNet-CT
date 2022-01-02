@@ -14,6 +14,10 @@ import matplotlib.pyplot as plt
 from prometheus_client import CollectorRegistry, multiprocess, start_http_server, push_to_gateway, REGISTRY
 from prometheus_client import Histogram, Counter, Summary
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import logging
+from log_handler import create_logger, merry
+
+logger = create_logger(__name__)
 # from main import inference_histogram
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -48,17 +52,18 @@ CLASS_NAMES = ('Normal', 'Pneumonia', 'COVID-19')
 
 inference_histogram = Histogram('inference_latency_seconds', 'Description of inference histogram', registry=REGISTRY)
 
+@merry._try
 def dense_grad_filter(gvs):
     """Filter to apply gradient updates to dense layers only"""
     return [(g, v) for g, v in gvs if 'dense' in v.name]
 
-
+@merry._try
 def simple_summary(tag_to_value, tag_prefix=''):
     """Summary object for a dict of python scalars"""
     return tf.Summary(value=[tf.Summary.Value(tag=tag_prefix + tag, simple_value=value)
                              for tag, value in tag_to_value.items() if isinstance(value, (int, float))])
 
-
+@merry._try
 def create_session():
     """Helper function for session creation"""
     config = tf.ConfigProto()
@@ -66,7 +71,7 @@ def create_session():
     sess = tf.Session(config=config)
     return sess
 
-
+@merry._try
 def load_graph(meta_file):
     """Creates new graph and session"""
     graph = tf.Graph()
@@ -79,7 +84,7 @@ def load_graph(meta_file):
         saver = tf.train.import_meta_graph(meta_file, clear_devices=True)
     return graph, sess, saver
 
-
+@merry._try
 def load_ckpt(ckpt, sess, saver):
     """Helper for loading weights"""
     # Load weights
@@ -87,7 +92,7 @@ def load_ckpt(ckpt, sess, saver):
         print('Loading weights from ' + ckpt)
         saver.restore(sess, ckpt)
 
-
+@merry._try
 def get_lr_scheduler(init_lr, global_step=None, decay_steps=None, schedule_type='cosine'):
     if schedule_type == 'constant':
         return init_lr
@@ -106,12 +111,15 @@ class Metrics:
         self.class_names = CLASS_NAMES
         self.confusion_matrix = np.zeros((num_classes, num_classes), dtype=np.uint32)
 
+    @merry._try
     def update(self, y_true, y_pred):
         self.confusion_matrix = self.confusion_matrix + confusion_matrix(y_true, y_pred, labels=self.labels)
 
+    @merry._try
     def reset(self):
         self.confusion_matrix *= 0
 
+    @merry._try
     def values(self):
         conf_matrix = self.confusion_matrix.astype('float')
         metrics = {
@@ -156,6 +164,7 @@ class COVIDNetCTRunner:
             self.train_op = self._add_optimizer(lr, momentum, fc_only)
             load_ckpt(self.ckpt, self.sess, self.saver)
 
+    @merry._try
     def trainval(self, epochs, output_dir, batch_size=1, train_split_file='train.txt', val_split_file='val.txt',
                  log_interval=20, val_interval=1000, save_interval=1000):
         """Run training with intermittent validation"""
@@ -216,6 +225,7 @@ class COVIDNetCTRunner:
             print('Saving checkpoint at last step')
             saver.save(self.sess, ckpt_path, global_step=num_iters, write_meta_graph=False)
 
+    @merry._try
     def test(self, batch_size=1, test_split_file='test.txt', plot_confusion=False):
         """Run test on a checkpoint"""
         with self.graph.as_default():
@@ -233,9 +243,11 @@ class COVIDNetCTRunner:
                 plt.show()
 
     @inference_histogram.time()
+    @merry._try
     def infer(self, image_file, autocrop=True, draw_heatmap=False, retrieve_result=False):
         """Run inference on the given image"""
         # Load and preprocess image
+        logger.info("Inferring the provided CT image!")
         from visualization_utils import auto_body_crop, load_and_preprocess, make_gradcam_graph, run_gradcam
         if not draw_heatmap:
             image = cv2.imread(image_file, cv2.IMREAD_GRAYSCALE)
@@ -292,6 +304,7 @@ class COVIDNetCTRunner:
             if retrieve_result:
                 return CLASS_NAMES[class_pred[0]]
 
+    @merry._try
     def _add_optimizer(self, learning_rate, momentum, fc_only=False):
         """Adds an optimizer and creates the train op"""
         # Create optimizer
@@ -315,6 +328,7 @@ class COVIDNetCTRunner:
 
         return train_op
 
+    @merry._try
     def _get_validation_fn(self, batch_size=1, val_split_file='val.txt'):
         """Creates validation function to call in self.trainval() or self.test()"""
         # Create val dataset
@@ -368,6 +382,7 @@ class COVIDNetCTRunner:
         # Restore confusion matrix
         metrics['confusion matrix'] = cm
 
+    @merry._try
     def _get_train_summary_op(self, tag_prefix='train/'):
         loss = self.graph.get_tensor_by_name(LOSS_TENSOR)
         loss_summary = tf.summary.scalar(tag_prefix + 'loss', loss)
@@ -375,6 +390,7 @@ class COVIDNetCTRunner:
 
 
 if __name__ == '__main__':
+    logger.info("Bootstrap!")
     # Suppress most TF messages
     tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
@@ -436,4 +452,3 @@ if __name__ == '__main__':
     elif mode == 'infer':
         # Run inference
         runner.infer(read_image_any_type(args.image_file, False), not args.no_crop, args.heatmap, args.heatmap_dir)
-

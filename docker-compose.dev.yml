@@ -7,6 +7,7 @@ services:
     - ./utils.py:/app/COVIDNet-CT/utils.py
     - ./read_dicom.py:/app/COVIDNet-CT/read_dicom.py
     - ./main.py:/app/COVIDNet-CT/main.py
+    - ./log_handler.py:/app/COVIDNet-CT/log_handler.py
     - ./register_metrics.sh:/app/COVIDNet-CT/register_metrics.sh
     - ./assets:/app/COVIDNet-CT/assets
     - ./feedback:/app/COVIDNet-CT/feedback
@@ -14,5 +15,6 @@ services:
     - ./multiprocess_metrics:/app/COVIDNet-CT/multiprocess_metrics
     - ./tests:/app/COVIDNet-CT/tests
     - /tmp/.X11-unix/:/tmp/.X11-unix
+    - ./logs:/app/COVIDNet-CT/logs
     environment:
       DISPLAY: ${DISPLAY}

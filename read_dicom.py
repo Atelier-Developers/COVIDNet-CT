@@ -6,6 +6,9 @@ from pydicom import dcmread
 import png
 import numpy as np
 import SimpleITK as sitk
+from log_handler import create_logger, merry
+
+logger = create_logger(__name__)
 
 
 def apply_brightness_contrast(input_img, brightness=0, contrast=0):
@@ -47,7 +50,7 @@ def read_image_any_type(file_path: str, is_temp: bool = True):
         return read_image_dicom(file_path, is_temp)
     return file_path
 
-
+@merry._try
 def mri_to_png(mri_file, png_file):
     """ Function to convert from a DICOM image to png
         @param mri_file: An opened file like object to read te dicom data
@@ -58,7 +61,6 @@ def mri_to_png(mri_file, png_file):
     plan = dcmread(mri_file)
     plan.PhotometricInterpretation = 'YBR_FULL'
     shape = plan.pixel_array.shape
-    print(f"MRI TO PNG {plan.pixel_array.shape}")
 
     image_2d = []
     max_val = 0
@@ -82,7 +84,7 @@ def mri_to_png(mri_file, png_file):
     w = png.Writer(shape[1], shape[0], greyscale=True)
     w.write(png_file, image_2d_scaled)
 
-
+@merry._try
 def read_image_dicom(file_path: str, is_temp: bool = True):
     output_filepath = make_new_file_path(file_path, is_temp)
     """ Function to convert an MRI binary file to a
@@ -90,7 +92,9 @@ def read_image_dicom(file_path: str, is_temp: bool = True):
                 @param mri_file_path: Full path to the mri file
                 @param png_file_path: Fill path to the png file
             """
+    logger.info("Converting dicom image to PNG file!")
     try:
+        logger.info("Utilizing the MRI to PNG function!")
         # Making sure that the mri file exists
         if not os.path.exists(file_path):
             raise Exception('File "%s" does not exists' % file_path)
@@ -105,7 +109,8 @@ def read_image_dicom(file_path: str, is_temp: bool = True):
         img = cv2.imread(output_filepath)
         img = apply_brightness_contrast(img, 120, 70)
         cv2.imwrite(output_filepath, img)
-    except ValueError:
+    except:
+        logger.info("Falling back on the secondary dicom converter!")
         # ds = dcmread(file_path)
         # ds.PhotometricInterpretation = 'YBR_FULL'
         # img = ds.pixel_array
@@ -121,7 +126,7 @@ def read_image_dicom(file_path: str, is_temp: bool = True):
 
     return output_filepath
 
-
+@merry._try
 def make_new_file_path(file_path: str, is_temp: bool = True):
     dir = '/'.join(file_path.split('/')[:-1])
     file_name_with_ext = file_path.split('/')[-1]
@@ -132,7 +137,6 @@ def make_new_file_path(file_path: str, is_temp: bool = True):
         os.makedirs(target_dir)
 
     result = f"{target_dir}/{file_name}.png"
-    print(f"res= {result}")
     return result
 
 
