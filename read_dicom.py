@@ -8,6 +8,40 @@ import numpy as np
 import SimpleITK as sitk
 
 
+def apply_brightness_contrast(input_img, brightness=0, contrast=0):
+    if brightness != 0:
+        if brightness > 0:
+            shadow = brightness
+            highlight = 255
+        else:
+            shadow = 0
+            highlight = 255 + brightness
+        alpha_b = (highlight - shadow) / 255
+        gamma_b = shadow
+
+        buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
+    else:
+        buf = input_img.copy()
+
+    if contrast != 0:
+        f = 131 * (contrast + 127) / (127 * (131 - contrast))
+        alpha_c = f
+        gamma_c = 127 * (1 - f)
+
+        buf = cv2.addWeighted(buf, alpha_c, buf, 0, gamma_c)
+
+    return buf
+
+
+def change_contrast(img, level):
+    factor = (259 * (level + 255)) / (255 * (259 - level))
+
+    def contrast(c):
+        return 128 + factor * (c - 128)
+
+    return img.point(contrast)
+
+
 def read_image_any_type(file_path: str, is_temp: bool = True):
     if file_path.split('.')[-1].lower() == 'dcm':
         return read_image_dicom(file_path, is_temp)
@@ -67,6 +101,10 @@ def read_image_dicom(file_path: str, is_temp: bool = True):
         mri_to_png(mri_file, png_file)
 
         png_file.close()
+
+        img = cv2.imread(output_filepath)
+        img = apply_brightness_contrast(img, 120, 70)
+        cv2.imwrite(output_filepath, img)
     except ValueError:
         # ds = dcmread(file_path)
         # ds.PhotometricInterpretation = 'YBR_FULL'
@@ -80,7 +118,6 @@ def read_image_dicom(file_path: str, is_temp: bool = True):
         img = sitk.Cast(img, sitk.sitkUInt8)
 
         sitk.WriteImage(img, output_filepath)
-
 
     return output_filepath
 
