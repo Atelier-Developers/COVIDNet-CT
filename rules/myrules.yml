@@ -1,11 +1,27 @@
 groups:
   - name: my-rule
     rules:
-      - record: job:node_cpu_seconds:idle_avg_rate5m
-        expr: avg without (cpu) (rate(node_cpu_seconds_total{mode="idle"}[5m]))
+      - record: job:inference_latency:avg_rate5m
+        expr: rate(inference_latency_seconds_sum[5m])/rate(inference_latency_seconds_count[5m])
+
+      - record: job:inference_pos_covid:delta_24h
+        expr: delta(inference_pos_covid[24h])
+
 
       - alert: NodeExporterDown
         expr: up{job='my_node_exporter'} == 0
         for: 1m
+        labels:
+          severity: critical
+
+      - alert: LongInferenceLatency
+        expr: job:inference_latency:avg_rate5m > 5
+        for: 15s
+        labels:
+          severity: critical
+
+      - alert: COVIDOutbreak
+        expr: job:inference_pos_covid:delta_24h > 2
+        for: 15s
         labels:
           severity: critical
