@@ -1,8 +1,7 @@
 version: "3.8"
 services:
   aphrodite:
-    build:
-      context: .
+    image: alpharmike/aphrodite:1.0
     restart: on-failure
     networks:
       - monitoring

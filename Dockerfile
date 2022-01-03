@@ -1,4 +1,4 @@
-FROM alpharmike/covid-net-ct:latest
+FROM alpharmike/covid-net-ct:2.0
 
 RUN apt-get update && \
   apt-get install -y build-essential qt5-default libqt5sql5-mysql \
