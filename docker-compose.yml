@@ -89,10 +89,6 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_USER: aphrodite
       MYSQL_PASSWORD: goddessOfLove
-  flair:
-    image: samhavens/flair-as-service:en-full
-    ports:
-      - "5000:5000"
 
 networks:
   monitoring:
