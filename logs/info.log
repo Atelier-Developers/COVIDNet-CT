@@ -1,0 +1,69 @@
+[2022-01-02 20:23:04,686] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:23:10,924] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:23:15,666] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:23:22,299] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:29:44,957] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:31:05,956] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:32:34,846] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:45:02,352] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:45:08,541] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:48:33,389] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:48:40,056] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 20:48:40,056] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 20:49:37,870] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:49:43,692] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 20:49:43,692] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 20:49:43,830] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:51:22,447] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:51:28,285] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 20:51:28,286] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 20:51:28,776] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:51:33,365] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:51:39,297] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 20:51:39,298] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 20:51:39,720] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:52:23,488] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:52:29,353] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 20:52:29,353] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 20:52:29,396] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 20:55:50,074] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 20:55:56,001] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 20:55:56,002] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 20:55:56,033] INFO     read_dicom.py read_image_dicom Falling back on the secondary dicom converter!
+[2022-01-02 20:55:56,105] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:13:30,502] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:13:36,570] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:13:36,571] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:13:36,606] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:17:14,862] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:17:20,773] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:17:20,773] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:17:20,815] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:20:18,592] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:20:24,709] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:20:24,710] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:20:24,750] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:22:31,380] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:22:37,407] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:22:37,407] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:22:37,447] INFO     read_dicom.py read_image_dicom Falling back on the secondary dicom converter!
+[2022-01-02 21:22:37,520] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:23:18,716] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:23:25,033] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:23:25,034] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:23:25,497] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:24:38,897] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:24:44,969] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:24:44,970] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:24:45,014] INFO     read_dicom.py read_image_dicom Falling back on the secondary dicom converter!
+[2022-01-02 21:24:45,112] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:24:51,217] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:24:57,538] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:24:57,538] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:24:57,582] INFO     read_dicom.py read_image_dicom Falling back on the secondary dicom converter!
+[2022-01-02 21:24:57,671] INFO     run_covidnet_ct.py infer Inferring the provided CT image!
+[2022-01-02 21:25:17,902] INFO     run_covidnet_ct.py <module> Bootstrap!
+[2022-01-02 21:25:23,930] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:25:23,931] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
+[2022-01-02 21:25:23,970] INFO     read_dicom.py read_image_dicom Falling back on the secondary dicom converter!
+[2022-01-02 21:25:24,038] INFO     run_covidnet_ct.py infer Inferring the provided CT image!

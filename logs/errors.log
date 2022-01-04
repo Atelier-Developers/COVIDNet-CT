@@ -1,0 +1,202 @@
+[2022-01-02 20:45:08,621] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "run_covidnet_ct.py", line 283, in infer
+    image = load_and_preprocess([image_file])
+  File "/app/COVIDNet-CT/visualization_utils.py", line 28, in load_and_preprocess
+    image, _ = auto_body_crop(image)
+  File "/app/COVIDNet-CT/data_utils.py", line 47, in auto_body_crop
+    filt_image = cv2.GaussianBlur(image, (5, 5), 0)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+
+[2022-01-02 20:48:40,081] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 72, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 20:48:40,084] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 72, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 106, in read_image_dicom
+    mri_to_png(mri_file, png_file)
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 81, in wrapper
+    return self.except_[handler]()
+  File "/app/COVIDNet-CT/log_handler.py", line 49, in handle_type_error
+    raise Exception
+Exception
+[2022-01-02 20:49:43,820] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 72, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 20:49:43,829] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 112, in read_image_dicom
+    cv2.imwrite(output_filepath, img)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/imgcodecs/src/loadsave.cpp:715: error: (-215:Assertion failed) !_img.empty() in function 'imwrite'
+
+[2022-01-02 20:49:43,906] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "run_covidnet_ct.py", line 283, in infer
+    image = load_and_preprocess([image_file])
+  File "/app/COVIDNet-CT/visualization_utils.py", line 28, in load_and_preprocess
+    image, _ = auto_body_crop(image)
+  File "/app/COVIDNet-CT/data_utils.py", line 47, in auto_body_crop
+    filt_image = cv2.GaussianBlur(image, (5, 5), 0)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+
+[2022-01-02 20:52:29,386] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 72, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 20:52:29,395] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 112, in read_image_dicom
+    cv2.imwrite(output_filepath, img)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/imgcodecs/src/loadsave.cpp:715: error: (-215:Assertion failed) !_img.empty() in function 'imwrite'
+
+[2022-01-02 20:52:29,473] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "run_covidnet_ct.py", line 283, in infer
+    image = load_and_preprocess([image_file])
+  File "/app/COVIDNet-CT/visualization_utils.py", line 28, in load_and_preprocess
+    image, _ = auto_body_crop(image)
+  File "/app/COVIDNet-CT/data_utils.py", line 47, in auto_body_crop
+    filt_image = cv2.GaussianBlur(image, (5, 5), 0)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+
+[2022-01-02 21:13:36,602] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 114, in read_image_dicom
+    cv2.imwrite(output_filepath, img)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/imgcodecs/src/loadsave.cpp:715: error: (-215:Assertion failed) !_img.empty() in function 'imwrite'
+
+[2022-01-02 21:13:36,685] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "run_covidnet_ct.py", line 283, in infer
+    image = load_and_preprocess([image_file])
+  File "/app/COVIDNet-CT/visualization_utils.py", line 28, in load_and_preprocess
+    image, _ = auto_body_crop(image)
+  File "/app/COVIDNet-CT/data_utils.py", line 47, in auto_body_crop
+    filt_image = cv2.GaussianBlur(image, (5, 5), 0)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+
+[2022-01-02 21:17:20,803] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/app/COVIDNet-CT/read_dicom.py", line 72, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 75, in mri_to_png
+    raise Exception
+Exception
+[2022-01-02 21:17:20,813] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 114, in read_image_dicom
+    cv2.imwrite(output_filepath, img)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/imgcodecs/src/loadsave.cpp:715: error: (-215:Assertion failed) !_img.empty() in function 'imwrite'
+
+[2022-01-02 21:17:20,895] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "run_covidnet_ct.py", line 283, in infer
+    image = load_and_preprocess([image_file])
+  File "/app/COVIDNet-CT/visualization_utils.py", line 28, in load_and_preprocess
+    image, _ = auto_body_crop(image)
+  File "/app/COVIDNet-CT/data_utils.py", line 47, in auto_body_crop
+    filt_image = cv2.GaussianBlur(image, (5, 5), 0)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+
+[2022-01-02 21:20:24,740] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 71, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 21:20:24,749] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 111, in read_image_dicom
+    cv2.imwrite(output_filepath, img)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/imgcodecs/src/loadsave.cpp:715: error: (-215:Assertion failed) !_img.empty() in function 'imwrite'
+
+[2022-01-02 21:20:24,828] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "run_covidnet_ct.py", line 283, in infer
+    image = load_and_preprocess([image_file])
+  File "/app/COVIDNet-CT/visualization_utils.py", line 28, in load_and_preprocess
+    image, _ = auto_body_crop(image)
+  File "/app/COVIDNet-CT/data_utils.py", line 47, in auto_body_crop
+    filt_image = cv2.GaussianBlur(image, (5, 5), 0)
+cv2.error: OpenCV(4.2.0) /io/opencv/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+
+[2022-01-02 21:22:37,441] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 71, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 21:24:45,003] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 71, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 21:24:57,573] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 71, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+[2022-01-02 21:25:23,963] ERROR    __init__.py wrapper [merry] Exception caught
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/merry/__init__.py", line 48, in wrapper
+    ret = f(*args, **kwargs)
+  File "/app/COVIDNet-CT/read_dicom.py", line 71, in mri_to_png
+    if col > max_val: max_val = col
+ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()

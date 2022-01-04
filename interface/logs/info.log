@@ -1,0 +1,2 @@
+[2022-01-02 21:23:12,186] INFO     read_dicom.py read_image_dicom Converting dicom image to PNG file!
+[2022-01-02 21:23:12,186] INFO     read_dicom.py read_image_dicom Utilizing the MRI to PNG function!
